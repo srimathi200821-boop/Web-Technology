@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Us - SpiceMix</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Poppins',sans-serif; background:#fff; color:#333; }
+
+    nav { background:white; padding:16px 60px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 12px rgba(0,0,0,0.08); position:sticky; top:0; z-index:100; }
+    .logo { font-size:22px; font-weight:800; color:#ff4500; text-decoration:none; }
+    .logo span { color:#333; }
+    .nav-links { display:flex; gap:8px; align-items:center; }
+    .nav-link { color:#555; font-size:13px; font-weight:600; text-decoration:none; padding:9px 14px; border-radius:8px; transition:0.3s; }
+    .nav-link:hover, .nav-link.active { color:#ff4500; background:#fff0eb; }
+    .nav-btn { background:#ff4500; color:white; padding:10px 20px; border-radius:8px; font-size:13px; font-weight:600; text-decoration:none; transition:0.3s; }
+    .nav-btn:hover { background:#e03d00; }
+
+    /* HERO */
+    .hero { background:linear-gradient(135deg,#ff4500,#ff8c00); padding:70px 60px; text-align:center; color:white; }
+    .hero-badge { display:inline-block; background:rgba(255,255,255,0.2); padding:6px 18px; border-radius:50px; font-size:12px; font-weight:700; letter-spacing:1px; margin-bottom:18px; }
+    .hero h1 { font-family:'Playfair Display',serif; font-size:52px; font-weight:800; margin-bottom:14px; }
+    .hero p { font-size:16px; opacity:0.88; max-width:480px; margin:0 auto; line-height:1.8; }
+
+    /* CONTACT CARDS ROW */
+    .cards-row { display:flex; gap:20px; padding:50px 60px 0; max-width:1100px; margin:0 auto; }
+    .info-card { flex:1; background:white; border-radius:20px; padding:28px 24px; box-shadow:0 4px 24px rgba(0,0,0,0.08); border:1px solid #f0f0f0; text-align:center; transition:0.3s; animation:fadeUp 0.5s ease both; }
+    .info-card:hover { transform:translateY(-6px); box-shadow:0 16px 40px rgba(255,69,0,0.12); border-color:#ffe5d9; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+    .ic-icon { width:56px; height:56px; border-radius:16px; background:linear-gradient(135deg,#fff0eb,#ffe5d9); display:flex; align-items:center; justify-content:center; font-size:26px; margin:0 auto 14px; }
+    .ic-title { font-size:14px; font-weight:700; color:#222; margin-bottom:6px; }
+    .ic-val   { font-size:13px; color:#ff4500; font-weight:600; margin-bottom:4px; }
+    .ic-sub   { font-size:12px; color:#aaa; }
+
+    /* MAIN CONTENT */
+    .main-content { display:flex; gap:48px; padding:50px 60px 80px; max-width:1100px; margin:0 auto; }
+
+    /* FORM */
+    .form-section { flex:1.2; }
+    .section-tag { font-size:11px; font-weight:700; color:#ff4500; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:10px; }
+    .form-section h2 { font-family:'Playfair Display',serif; font-size:34px; font-weight:800; color:#1a1a1a; margin-bottom:8px; line-height:1.2; }
+    .form-section > p { color:#888; font-size:14px; margin-bottom:28px; line-height:1.7; }
+
+    .form-group { margin-bottom:18px; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:18px; }
+    .form-group label { display:block; font-size:11px; font-weight:700; color:#555; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:7px; }
+    .form-group input, .form-group select, .form-group textarea {
+      width:100%; padding:13px 16px; border:1.5px solid #e8e8e8; border-radius:10px;
+      font-family:'Poppins',sans-serif; font-size:13px; color:#333; background:#fafafa;
+      outline:none; transition:0.3s;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color:#ff4500; background:white; box-shadow:0 0 0 4px rgba(255,69,0,0.07);
+    }
+    .form-group textarea { min-height:130px; resize:vertical; line-height:1.6; }
+    .form-group input::placeholder, .form-group textarea::placeholder { color:#ccc; }
+
+    .topic-chips { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px; }
+    .chip { padding:7px 16px; border:1.5px solid #e8e8e8; border-radius:50px; font-size:12px; font-weight:600; color:#555; cursor:pointer; transition:0.2s; background:white; }
+    .chip.sel, .chip:hover { background:#fff0eb; border-color:#ff4500; color:#ff4500; }
+
+    .submit-btn {
+      width:100%; padding:15px; background:linear-gradient(135deg,#ff4500,#ff8c00);
+      color:white; border:none; border-radius:12px; font-family:'Poppins',sans-serif;
+      font-size:15px; font-weight:700; cursor:pointer; transition:0.3s;
+      box-shadow:0 4px 20px rgba(255,69,0,0.3);
+    }
+    .submit-btn:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(255,69,0,0.4); }
+
+    /* SUCCESS */
+    .success-box { display:none; text-align:center; padding:40px 20px; animation:fadeUp 0.5s ease; }
+    .success-box .s-ico { font-size:60px; margin-bottom:16px; }
+    .success-box h3 { font-size:22px; font-weight:800; color:#222; margin-bottom:8px; }
+    .success-box p { font-size:14px; color:#888; margin-bottom:24px; line-height:1.7; }
+    .success-box a { background:#ff4500; color:white; padding:13px 28px; border-radius:10px; text-decoration:none; font-weight:700; font-size:14px; }
+
+    /* RIGHT PANEL */
+    .right-panel { flex:0.85; display:flex; flex-direction:column; gap:20px; }
+
+    .hours-card { background:white; border-radius:20px; padding:26px; box-shadow:0 4px 24px rgba(0,0,0,0.07); border:1px solid #f0f0f0; }
+    .hours-card h3 { font-size:16px; font-weight:700; color:#222; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
+    .hours-row { display:flex; justify-content:space-between; padding:9px 0; border-bottom:1px solid #f5f5f5; font-size:13px; }
+    .hours-row:last-child { border:none; }
+    .hours-day { color:#555; font-weight:500; }
+    .hours-time { color:#ff4500; font-weight:700; }
+    .open-badge { background:#f0fdf4; color:#16a34a; border:1px solid #bbf7d0; padding:3px 10px; border-radius:50px; font-size:11px; font-weight:700; }
+
+    .social-card { background:white; border-radius:20px; padding:26px; box-shadow:0 4px 24px rgba(0,0,0,0.07); border:1px solid #f0f0f0; }
+    .social-card h3 { font-size:16px; font-weight:700; color:#222; margin-bottom:16px; }
+    .social-links { display:flex; flex-direction:column; gap:10px; }
+    .soc-link { display:flex; align-items:center; gap:12px; padding:11px 14px; border-radius:10px; background:#fafafa; text-decoration:none; transition:0.2s; }
+    .soc-link:hover { background:#fff0eb; }
+    .soc-icon { width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+    .soc-name { font-size:13px; font-weight:600; color:#333; }
+    .soc-handle { font-size:11px; color:#aaa; }
+
+    .faq-card { background:white; border-radius:20px; padding:26px; box-shadow:0 4px 24px rgba(0,0,0,0.07); border:1px solid #f0f0f0; }
+    .faq-card h3 { font-size:16px; font-weight:700; color:#222; margin-bottom:16px; }
+    .faq-item { border-bottom:1px solid #f5f5f5; }
+    .faq-item:last-child { border:none; }
+    .faq-q { display:flex; justify-content:space-between; align-items:center; padding:12px 0; cursor:pointer; font-size:13px; font-weight:600; color:#333; }
+    .faq-q:hover { color:#ff4500; }
+    .faq-arrow { font-size:14px; color:#aaa; transition:transform 0.3s; }
+    .faq-item.open .faq-arrow { transform:rotate(180deg); }
+    .faq-a { max-height:0; overflow:hidden; transition:max-height 0.3s ease; font-size:12px; color:#888; line-height:1.7; }
+    .faq-item.open .faq-a { max-height:100px; padding-bottom:12px; }
+
+    .toast { position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(20px); background:#222; color:white; padding:13px 28px; border-radius:50px; font-size:14px; font-weight:500; opacity:0; transition:0.35s; pointer-events:none; z-index:999; white-space:nowrap; }
+    .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+    @media(max-width:900px) {
+      nav { padding:14px 20px; }
+      .hero { padding:50px 24px; }
+      .hero h1 { font-size:36px; }
+      .cards-row { flex-direction:column; padding:32px 24px 0; }
+      .main-content { flex-direction:column; padding:32px 24px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Spice<span>Mix</span> 🌶️</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">🏠 Home</a>
+    <a href="menu.html" class="nav-link">🍽️ Menu</a>
+    <a href="offers.html" class="nav-link">🎁 Offers</a>
+    <a href="about.html" class="nav-link">ℹ️ About</a>
+    <a href="contact.html" class="nav-link active">📞 Contact</a>
+    <a href="reviews.html" class="nav-link">⭐ Reviews</a>
+    <a href="menu.html" class="nav-btn">🛒 Order Now</a>
+  </div>
+</nav>
+
+
+<div class="hero">
+  <div class="hero-badge">We're Here to Help 💬</div>
+  <h1>Get in Touch</h1>
+  <p>Questions, feedback or just want to say hi? We'd love to hear from you!</p>
+</div>
+
+<!-- CONTACT CARDS -->
+<div class="cards-row">
+  <div class="info-card" style="animation-delay:0.05s">
+    <div class="ic-icon">📞</div>
+    <div class="ic-title">Call Us</div>
+    <div class="ic-val">+91 44 2620 1234</div>
+    <div class="ic-sub">Mon–Sun · 8 AM – 11 PM</div>
+  </div>
+  <div class="info-card" style="animation-delay:0.1s">
+    <div class="ic-icon">📧</div>
+    <div class="ic-title">Email Us</div>
+    <div class="ic-val">hello@spicemix.in</div>
+    <div class="ic-sub">Reply within 2 hours</div>
+  </div>
+  <div class="info-card" style="animation-delay:0.15s">
+    <div class="ic-icon">📍</div>
+    <div class="ic-title">Visit Us</div>
+    <div class="ic-val">Anna Nagar, Chennai</div>
+    <div class="ic-sub">12, 2nd Street, 600 040</div>
+  </div>
+  <div class="info-card" style="animation-delay:0.2s">
+    <div class="ic-icon">💬</div>
+    <div class="ic-title">WhatsApp</div>
+    <div class="ic-val">+91 98400 12345</div>
+    <div class="ic-sub">Quick replies guaranteed</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main-content">
+
+  <!-- FORM -->
+  <div class="form-section">
+    <div class="section-tag">Send a Message</div>
+    <h2>We'd Love to<br>Hear From You</h2>
+    <p>Fill in the form and our team will get back to you within 2 hours.</p>
+
+    <div id="contactForm">
+      <div class="form-row">
+        <div class="form-group"><label>First Name</label><input type="text" placeholder="Eg. Arjun"></div>
+        <div class="form-group"><label>Last Name</label><input type="text" placeholder="Eg. Kumar"></div>
+      </div>
+      <div class="form-group"><label>Email Address</label><input type="email" placeholder="you@email.com"></div>
+      <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+91 98765 43210"></div>
+
+      <div class="form-group">
+        <label>Topic</label>
+        <div class="topic-chips" id="topicChips">
+          <span class="chip sel" onclick="selChip(this)">🍽️ Order Issue</span>
+          <span class="chip" onclick="selChip(this)">🚚 Delivery</span>
+          <span class="chip" onclick="selChip(this)">💰 Refund</span>
+          <span class="chip" onclick="selChip(this)">😋 Food Quality</span>
+          <span class="chip" onclick="selChip(this)">💡 Suggestion</span>
+          <span class="chip" onclick="selChip(this)">🤝 Partnership</span>
+          <span class="chip" onclick="selChip(this)">🔧 Technical</span>
+          <span class="chip" onclick="selChip(this)">📦 Other</span>
+        </div>
+      </div>
+
+      <div class="form-group"><label>Your Message</label><textarea placeholder="Tell us how we can help you..."></textarea></div>
+
+      <button class="submit-btn" onclick="submitForm()">📨 Send Message</button>
+    </div>
+
+    <div class="success-box" id="successBox">
+      <div class="s-ico">🎉</div>
+      <h3>Message Sent!</h3>
+      <p>Thank you for reaching out! Our team will get back to you within 2 hours. In the meantime, feel free to browse our menu.</p>
+      <a href="menu.html">🍽️ Explore Menu</a>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+
+    <!-- HOURS -->
+    <div class="hours-card">
+      <h3>🕐 Opening Hours <span class="open-badge">Open Now</span></h3>
+      <div class="hours-row"><span class="hours-day">Monday – Friday</span><span class="hours-time">8 AM – 11 PM</span></div>
+      <div class="hours-row"><span class="hours-day">Saturday</span><span class="hours-time">7 AM – 11:30 PM</span></div>
+      <div class="hours-row"><span class="hours-day">Sunday</span><span class="hours-time">7 AM – 11:30 PM</span></div>
+      <div class="hours-row"><span class="hours-day">Public Holidays</span><span class="hours-time">9 AM – 10 PM</span></div>
+      <div style="margin-top:14px;background:#fff8f5;border-radius:10px;padding:10px 14px;font-size:12px;color:#888;">
+        🚀 Delivery available during all hours · Last order 30 mins before closing
+      </div>
+    </div>
+
+    <!-- SOCIAL -->
+    <div class="social-card">
+      <h3>📱 Follow Us</h3>
+      <div class="social-links">
+        <a class="soc-link" href="#">
+          <div class="soc-icon" style="background:#fff0eb;">📸</div>
+          <div><div class="soc-name">Instagram</div><div class="soc-handle">@spicemixchennai</div></div>
+        </a>
+        <a class="soc-link" href="#">
+          <div class="soc-icon" style="background:#e8f0fe;">👤</div>
+          <div><div class="soc-name">Facebook</div><div class="soc-handle">SpiceMix Chennai</div></div>
+        </a>
+        <a class="soc-link" href="#">
+          <div class="soc-icon" style="background:#f0fdf4;">💬</div>
+          <div><div class="soc-name">WhatsApp</div><div class="soc-handle">+91 98400 12345</div></div>
+        </a>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq-card">
+      <h3>❓ Quick FAQs</h3>
+      <div class="faq-item open">
+        <div class="faq-q" onclick="toggleFaq(this)">How long does delivery take? <span class="faq-arrow">▾</span></div>
+        <div class="faq-a">We deliver within 30 minutes across Chennai. During peak hours, it may take up to 45 minutes.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Can I cancel my order? <span class="faq-arrow">▾</span></div>
+        <div class="faq-a">Yes! You can cancel within 5 minutes of placing the order. After that, cancellation may not be possible.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Do you offer refunds? <span class="faq-arrow">▾</span></div>
+        <div class="faq-a">Yes, we offer full refunds for cancelled or incorrect orders. Refunds are processed within 3-5 business days.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Is there a minimum order value? <span class="faq-arrow">▾</span></div>
+        <div class="faq-a">Minimum order is ₹99 for delivery. Orders above ₹299 get free delivery!</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+function selChip(el) {
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('sel'));
+  el.classList.add('sel');
+}
+function submitForm() {
+  document.getElementById('contactForm').style.display = 'none';
+  document.getElementById('successBox').style.display = 'block';
+}
+function toggleFaq(el) {
+  var item = el.parentElement;
+  var isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(f => f.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+var toastTimer;
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){t.classList.remove('show');}, 2500);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - SpiceMix</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ff4500, #ff8c00);
+      display: flex; align-items: center; justify-content: center;
+      padding: 40px 20px;
+    }
+    .card {
+      background: white; border-radius: 24px;
+      padding: 48px 44px; width: 440px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      animation: fadeIn 0.8s ease;
+    }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+    .card-logo { text-align: center; margin-bottom: 28px; }
+    .card-logo .emoji { font-size: 52px; }
+    .card-logo h2 { font-size: 26px; font-weight: 800; color: #ff4500; margin-top: 8px; }
+    .card-logo p { font-size: 13px; color: #888; margin-top: 4px; }
+    label { display: block; font-size: 12px; font-weight: 600; color: #555; margin-bottom: 6px; margin-top: 16px; text-transform: uppercase; letter-spacing: 0.5px; }
+    input, select {
+      width: 100%; padding: 13px 16px; border: 2px solid #f0f0f0;
+      border-radius: 10px; font-size: 14px; font-family: 'Poppins', sans-serif;
+      color: #333; outline: none; transition: 0.3s; background: #fafafa;
+    }
+    input:focus, select:focus { border-color: #ff4500; background: #fff8f0; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .btn {
+      width: 100%; padding: 15px; background: #ff4500; color: white;
+      border: none; border-radius: 12px; font-size: 16px; font-weight: 700;
+      cursor: pointer; margin-top: 24px; font-family: 'Poppins', sans-serif;
+      transition: 0.3s;
+    }
+    .btn:hover { background: #e03d00; transform: scale(1.03); }
+    .back { display: block; text-align: center; margin-top: 18px; color: #aaa; font-size: 13px; text-decoration: none; transition: 0.3s; }
+    .back:hover { color: #ff4500; }
+    .popup-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 100; opacity: 0; pointer-events: none; transition: 0.3s; }
+    .popup-overlay.show { opacity: 1; pointer-events: all; }
+    .popup { background: white; border-radius: 24px; padding: 48px 40px; text-align: center; width: 320px; transform: scale(0.8); transition: 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+    .popup-overlay.show .popup { transform: scale(1); }
+    .popup .emoji { font-size: 56px; margin-bottom: 16px; }
+    .popup h3 { font-size: 22px; font-weight: 700; color: #222; margin-bottom: 8px; }
+    .popup p  { color: #888; font-size: 14px; margin-bottom: 28px; }
+    .popup-btn { padding: 13px 40px; background: #ff4500; color: white; border: none; border-radius: 50px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: 'Poppins', sans-serif; transition: 0.3s; }
+    .popup-btn:hover { background: #e03d00; transform: scale(1.05); }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="card-logo">
+      <div class="emoji">🌶️</div>
+      <h2>SpiceMix</h2>
+      <p>Login to order your favourite food!</p>
+    </div>
+    <div class="row">
+      <div><label>First Name</label><input type="text" placeholder="eg. Arjun"></div>
+      <div><label>Last Name</label><input type="text" placeholder="eg. Kumar"></div>
+    </div>
+    <label>Email Address</label>
+    <input type="email" placeholder="you@email.com">
+    <label>Phone Number</label>
+    <input type="tel" placeholder="+91 98765 43210">
+    <div class="row">
+      <div><label>Username</label><input type="text" placeholder="username"></div>
+      <div>
+        <label>Gender</label>
+        <select><option value="">Select</option><option>Male</option><option>Female</option><option>Other</option></select>
+      </div>
+    </div>
+    <label>Password</label>
+    <input type="password" placeholder="••••••••">
+    <button class="btn" onclick="showPopup()">🍽️ Login & Order</button>
+    <a href="index.html" class="back">← Back to Home</a>
+  </div>
+
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup">
+      <div class="emoji">🎉</div>
+      <h3>Welcome to SpiceMix!</h3>
+      <p>Your account is ready.<br>Let's explore the menu! 🍛</p>
+      <button class="popup-btn" onclick="window.location.href='menu.html'">View Menu →</button>
+    </div>
+  </div>
+
+  <script>
+    function showPopup() {
+      document.getElementById('popupOverlay').classList.add('show');
+    }
+  </script>
+</body>
+</html>

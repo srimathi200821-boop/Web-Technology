@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Offers & Coupons - SpiceMix</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Poppins',sans-serif; background:#f7f7f7; color:#333; }
+
+    nav { background:white; padding:16px 60px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 12px rgba(0,0,0,0.08); position:sticky; top:0; z-index:100; }
+    .logo { font-size:22px; font-weight:800; color:#ff4500; text-decoration:none; }
+    .logo span { color:#333; }
+    .nav-links { display:flex; gap:8px; align-items:center; }
+    .nav-link { color:#555; font-size:13px; font-weight:600; text-decoration:none; padding:9px 14px; border-radius:8px; transition:0.3s; }
+    .nav-link:hover, .nav-link.active { color:#ff4500; background:#fff0eb; }
+    .nav-btn { background:#ff4500; color:white; padding:10px 20px; border-radius:8px; font-size:13px; font-weight:600; text-decoration:none; transition:0.3s; }
+    .nav-btn:hover { background:#e03d00; }
+
+    /* HERO */
+    .hero {
+      background:linear-gradient(135deg,#1a1a1a 0%,#2d1200 50%,#ff4500 100%);
+      padding:70px 60px; text-align:center; color:white; position:relative; overflow:hidden;
+    }
+    .hero::before { content:'🎁'; position:absolute; font-size:300px; opacity:0.04; right:-40px; top:-40px; }
+    .hero::after  { content:'🎉'; position:absolute; font-size:200px; opacity:0.04; left:-20px; bottom:-40px; }
+    .hero-badge { display:inline-block; background:rgba(255,140,0,0.25); border:1px solid rgba(255,140,0,0.5); color:#ff8c00; padding:6px 18px; border-radius:50px; font-size:12px; font-weight:700; letter-spacing:1px; margin-bottom:18px; }
+    .hero h1 { font-family:'Playfair Display',serif; font-size:52px; font-weight:800; margin-bottom:14px; }
+    .hero h1 span { color:#ff8c00; }
+    .hero p { font-size:16px; opacity:0.85; max-width:480px; margin:0 auto 32px; line-height:1.8; }
+    .hero-search { display:flex; max-width:440px; margin:0 auto; background:white; border-radius:12px; overflow:hidden; box-shadow:0 8px 32px rgba(0,0,0,0.3); }
+    .hero-search input { flex:1; padding:15px 20px; border:none; font-family:'Poppins',sans-serif; font-size:14px; outline:none; color:#333; }
+    .hero-search button { background:#ff4500; color:white; border:none; padding:15px 24px; font-size:13px; font-weight:700; cursor:pointer; font-family:'Poppins',sans-serif; transition:0.3s; }
+    .hero-search button:hover { background:#e03d00; }
+
+    /* COUNTDOWN STRIP */
+    .countdown-strip { background:linear-gradient(90deg,#ff4500,#ff8c00); padding:14px 60px; display:flex; align-items:center; justify-content:center; gap:16px; }
+    .cs-label { color:white; font-size:13px; font-weight:600; }
+    .cs-timer { display:flex; gap:8px; align-items:center; }
+    .cs-unit { background:rgba(0,0,0,0.25); color:white; padding:6px 12px; border-radius:8px; text-align:center; }
+    .cs-unit .num { font-size:18px; font-weight:800; display:block; }
+    .cs-unit .lbl { font-size:9px; opacity:0.8; }
+    .cs-sep { color:white; font-size:18px; font-weight:700; }
+
+    /* MAIN */
+    .main { max-width:1100px; margin:0 auto; padding:40px 60px 80px; }
+
+    /* FILTER TABS */
+    .filter-tabs { display:flex; gap:8px; margin-bottom:32px; flex-wrap:wrap; }
+    .ftab { padding:9px 20px; border:2px solid #e8e8e8; border-radius:50px; background:white; font-family:'Poppins',sans-serif; font-size:13px; font-weight:600; color:#555; cursor:pointer; transition:0.2s; }
+    .ftab.active, .ftab:hover { background:#ff4500; color:white; border-color:#ff4500; }
+
+    /* FEATURED OFFER */
+    .featured { background:linear-gradient(135deg,#ff4500,#ff8c00); border-radius:24px; padding:36px 40px; display:flex; align-items:center; justify-content:space-between; margin-bottom:32px; position:relative; overflow:hidden; animation:fadeUp 0.5s ease; }
+    .featured::before { content:'🌶️'; position:absolute; font-size:180px; opacity:0.08; right:-20px; top:-20px; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+    .feat-left {}
+    .feat-tag { background:rgba(255,255,255,0.2); color:white; padding:4px 14px; border-radius:50px; font-size:11px; font-weight:700; display:inline-block; margin-bottom:12px; }
+    .featured h2 { font-family:'Playfair Display',serif; font-size:36px; font-weight:800; color:white; margin-bottom:8px; }
+    .featured p { color:rgba(255,255,255,0.85); font-size:14px; margin-bottom:22px; line-height:1.7; }
+    .feat-code-wrap { display:flex; align-items:center; gap:12px; }
+    .feat-code { background:rgba(255,255,255,0.15); border:2px dashed rgba(255,255,255,0.5); color:white; padding:10px 20px; border-radius:10px; font-size:18px; font-weight:800; letter-spacing:2px; }
+    .feat-copy-btn { background:white; color:#ff4500; border:none; padding:11px 20px; border-radius:10px; font-family:'Poppins',sans-serif; font-size:13px; font-weight:700; cursor:pointer; transition:0.3s; }
+    .feat-copy-btn:hover { transform:scale(1.05); }
+    .feat-right { text-align:center; flex-shrink:0; }
+    .feat-discount { font-size:80px; font-weight:800; color:white; line-height:1; }
+    .feat-discount-lbl { font-size:14px; color:rgba(255,255,255,0.8); font-weight:600; }
+    .feat-expiry { font-size:11px; color:rgba(255,255,255,0.6); margin-top:6px; }
+
+    /* OFFERS GRID */
+    .offers-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+
+    .offer-card { background:white; border-radius:20px; overflow:hidden; box-shadow:0 2px 16px rgba(0,0,0,0.07); transition:0.3s; animation:fadeUp 0.5s ease both; position:relative; }
+    .offer-card:hover { transform:translateY(-6px); box-shadow:0 14px 36px rgba(0,0,0,0.12); }
+    .offer-card.expired { opacity:0.5; filter:grayscale(0.5); }
+    .offer-card.expired:hover { transform:none; }
+
+    .oc-ribbon { position:absolute; top:16px; right:-8px; background:#ff4500; color:white; padding:4px 14px 4px 10px; font-size:10px; font-weight:700; border-radius:4px 0 0 4px; }
+    .oc-ribbon::after { content:''; position:absolute; right:0; bottom:-6px; border-width:6px 8px 0 0; border-style:solid; border-color:#c43300 transparent transparent transparent; }
+    .oc-ribbon.gold { background:#f59e0b; }
+    .oc-ribbon.gold::after { border-color:#b45309 transparent transparent transparent; }
+    .oc-ribbon.green { background:#22c55e; }
+    .oc-ribbon.green::after { border-color:#16a34a transparent transparent transparent; }
+
+    .oc-top { padding:24px 22px 18px; }
+    .oc-icon-row { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+    .oc-icon { width:48px; height:48px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:24px; flex-shrink:0; }
+    .oc-discount-badge { font-size:22px; font-weight:800; color:#ff4500; }
+    .oc-title { font-size:15px; font-weight:700; color:#222; margin-bottom:5px; }
+    .oc-desc  { font-size:12px; color:#888; line-height:1.6; margin-bottom:14px; }
+    .oc-tags  { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:14px; }
+    .oc-tag   { padding:3px 10px; border-radius:50px; font-size:10px; font-weight:700; }
+    .tag-orange { background:#fff0eb; color:#ff4500; }
+    .tag-green  { background:#f0fdf4; color:#16a34a; }
+    .tag-blue   { background:#eff6ff; color:#2563eb; }
+    .tag-gold   { background:#fffbeb; color:#d97706; }
+
+    .oc-bottom { padding:0 22px 18px; display:flex; align-items:center; justify-content:space-between; gap:10px; border-top:1px dashed #f0f0f0; padding-top:14px; }
+    .oc-code-wrap { display:flex; align-items:center; gap:8px; }
+    .oc-code { font-size:14px; font-weight:800; color:#222; letter-spacing:1px; }
+    .copy-btn { background:#fff0eb; border:none; color:#ff4500; padding:6px 14px; border-radius:8px; font-size:11px; font-weight:700; cursor:pointer; font-family:'Poppins',sans-serif; transition:0.2s; }
+    .copy-btn:hover { background:#ff4500; color:white; }
+    .use-btn { background:linear-gradient(135deg,#ff4500,#ff8c00); color:white; border:none; padding:9px 18px; border-radius:10px; font-size:12px; font-weight:700; cursor:pointer; font-family:'Poppins',sans-serif; transition:0.3s; text-decoration:none; display:inline-block; }
+    .use-btn:hover { transform:scale(1.05); }
+    .use-btn.disabled { background:#e0e0e0; color:#aaa; cursor:not-allowed; }
+    .use-btn.disabled:hover { transform:none; }
+
+    .oc-expiry { font-size:11px; color:#aaa; display:flex; align-items:center; gap:4px; }
+    .oc-expiry.soon { color:#ef4444; }
+
+    /* SECTION HEADER */
+    .sec-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; margin-top:40px; }
+    .sec-header h2 { font-size:20px; font-weight:800; color:#222; }
+    .sec-header p { font-size:13px; color:#aaa; }
+
+    /* HOW TO USE */
+    .how-section { background:white; border-radius:20px; padding:36px; margin-top:40px; box-shadow:0 2px 16px rgba(0,0,0,0.07); }
+    .how-section h2 { font-size:20px; font-weight:800; color:#222; margin-bottom:24px; text-align:center; }
+    .how-steps { display:flex; gap:0; align-items:flex-start; position:relative; }
+    .how-steps::before { content:''; position:absolute; top:22px; left:calc(12.5% + 22px); right:calc(12.5% + 22px); height:2px; background:linear-gradient(90deg,#ff4500,#ff8c00); z-index:0; }
+    .how-step { flex:1; text-align:center; position:relative; z-index:1; }
+    .how-num { width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg,#ff4500,#ff8c00); color:white; font-size:16px; font-weight:800; display:flex; align-items:center; justify-content:center; margin:0 auto 12px; box-shadow:0 4px 16px rgba(255,69,0,0.3); }
+    .how-step h4 { font-size:13px; font-weight:700; color:#222; margin-bottom:5px; }
+    .how-step p  { font-size:11px; color:#888; line-height:1.5; padding:0 8px; }
+
+    /* TOAST */
+    .toast { position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(20px); background:#222; color:white; padding:13px 28px; border-radius:50px; font-size:14px; font-weight:500; opacity:0; transition:0.35s; pointer-events:none; z-index:999; white-space:nowrap; }
+    .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+    @media(max-width:900px) {
+      nav { padding:14px 20px; }
+      .hero { padding:50px 24px; }
+      .hero h1 { font-size:36px; }
+      .countdown-strip { padding:12px 24px; flex-wrap:wrap; gap:10px; }
+      .main { padding:28px 20px 60px; }
+      .featured { flex-direction:column; gap:20px; text-align:center; }
+      .feat-code-wrap { justify-content:center; }
+      .offers-grid { grid-template-columns:1fr; }
+      .how-steps { flex-direction:column; gap:20px; }
+      .how-steps::before { display:none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Spice<span>Mix</span> 🌶️</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">🏠 Home</a>
+    <a href="menu.html" class="nav-link">🍽️ Menu</a>
+    <a href="offers.html" class="nav-link active">🎁 Offers</a>
+    <a href="about.html" class="nav-link">ℹ️ About</a>
+    <a href="contact.html" class="nav-link">📞 Contact</a>
+    <a href="menu.html" class="nav-btn">🛒 Order Now</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">🔥 Hot Deals · Limited Time</div>
+  <h1>Offers That Make<br><span>Your Wallet Happy</span></h1>
+  <p>Exclusive discounts, flash sales & promo codes — updated daily just for you!</p>
+  <div class="hero-search">
+    <input type="text" id="searchInp" placeholder="🔍  Search offers or paste a promo code..." oninput="searchOffers()">
+    <button onclick="searchOffers()">Search</button>
+  </div>
+</div>
+
+<!-- COUNTDOWN -->
+<div class="countdown-strip">
+  <span class="cs-label">⚡ Flash Sale ends in:</span>
+  <div class="cs-timer">
+    <div class="cs-unit"><span class="num" id="ctHr">08</span><span class="lbl">HRS</span></div>
+    <span class="cs-sep">:</span>
+    <div class="cs-unit"><span class="num" id="ctMin">42</span><span class="lbl">MIN</span></div>
+    <span class="cs-sep">:</span>
+    <div class="cs-unit"><span class="num" id="ctSec">00</span><span class="lbl">SEC</span></div>
+  </div>
+  <span class="cs-label">· Up to 50% OFF selected items!</span>
+</div>
+
+<div class="main">
+
+  <!-- FILTER TABS -->
+  <div class="filter-tabs">
+    <button class="ftab active" onclick="setFilter(this,'all')">🎁 All Offers</button>
+    <button class="ftab" onclick="setFilter(this,'new')">🆕 New Users</button>
+    <button class="ftab" onclick="setFilter(this,'flash')">⚡ Flash Sale</button>
+    <button class="ftab" onclick="setFilter(this,'free')">🚚 Free Delivery</button>
+    <button class="ftab" onclick="setFilter(this,'weekend')">🎉 Weekend</button>
+  </div>
+
+  <!-- FEATURED -->
+  <div class="featured">
+    <div class="feat-left">
+      <div class="feat-tag">⭐ Featured Offer</div>
+      <h2>First Order Special!</h2>
+      <p>New to SpiceMix? Get ₹100 off on your very first order.<br>No minimum order required — just enjoy!</p>
+      <div class="feat-code-wrap">
+        <div class="feat-code">FIRST100</div>
+        <button class="feat-copy-btn" onclick="copyCode('FIRST100')">📋 Copy Code</button>
+        <a href="menu.html" style="background:rgba(255,255,255,0.2);color:white;border:2px solid rgba(255,255,255,0.4);padding:11px 20px;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;">Use Now →</a>
+      </div>
+      <div class="feat-expiry" style="margin-top:14px;">⏳ Valid for new users only · Expires 31 Dec 2025</div>
+    </div>
+    <div class="feat-right">
+      <div class="feat-discount">₹100</div>
+      <div class="feat-discount-lbl">OFF your first order</div>
+      <div class="feat-expiry">🎉 New users only</div>
+    </div>
+  </div>
+
+  <!-- OFFERS -->
+  <div class="sec-header">
+    <h2>All Deals & Coupons</h2>
+    <p id="offerCount">Showing 7 offers</p>
+  </div>
+  <div class="offers-grid" id="offersGrid"></div>
+
+  <!-- HOW TO USE -->
+  <div class="how-section">
+    <h2>🎯 How to Use a Coupon?</h2>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-num">1</div>
+        <h4>Pick an Offer</h4>
+        <p>Browse our deals and find one that suits your order</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">2</div>
+        <h4>Copy the Code</h4>
+        <p>Click the Copy button to copy the promo code</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">3</div>
+        <h4>Add to Cart</h4>
+        <p>Go to Menu, add your favourite dishes to cart</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">4</div>
+        <h4>Paste & Save</h4>
+        <p>Paste the code in the Promo Code box at checkout & enjoy!</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var OFFERS = [
+  {
+    id:1, category:'new', code:'FIRST100', title:'First Order ₹100 OFF',
+    desc:'New to SpiceMix? Get flat ₹100 off your first order. No minimum order required!',
+    discount:'₹100 OFF', icon:'🎉', iconBg:'#fff0eb',
+    tags:['tag-orange:New Users','tag-green:No Min. Order'],
+    ribbon:'🆕 New User', ribbonClass:'green',
+    expiry:'31 Dec 2025', expired:false, expiryClass:'',
+  },
+  {
+    id:2, category:'flash', code:'SPICE50', title:'50% OFF Biryani',
+    desc:'Flash sale! Get 50% off on all Biryani items. Limited time only — grab it before it\'s gone!',
+    discount:'50% OFF', icon:'⚡', iconBg:'#fffbeb',
+    tags:['tag-gold:Flash Sale','tag-orange:Biryani Only'],
+    ribbon:'⚡ Flash', ribbonClass:'',
+    expiry:'Today only', expired:false, expiryClass:'soon',
+  },
+  {
+    id:3, category:'free', code:'FREEDEL99', title:'Free Delivery on ₹99+',
+    desc:'Order above ₹99 and get completely free delivery — anywhere in Chennai!',
+    discount:'FREE\nDelivery', icon:'🚚', iconBg:'#f0fdf4',
+    tags:['tag-green:Free Delivery','tag-blue:Min. ₹99'],
+    ribbon:'🚚 Free Del.', ribbonClass:'green',
+    expiry:'31 Mar 2026', expired:false, expiryClass:'',
+  },
+  {
+    id:4, category:'weekend', code:'WEEKEND30', title:'Weekend 30% OFF',
+    desc:'Enjoy 30% off every Saturday & Sunday on all South Indian dishes. Weekends just got tastier!',
+    discount:'30% OFF', icon:'🎉', iconBg:'#f5f3ff',
+    tags:['tag-blue:Weekends Only','tag-orange:South Indian'],
+    ribbon:'🎉 Weekend', ribbonClass:'gold',
+    expiry:'Every Weekend', expired:false, expiryClass:'',
+  },
+  {
+    id:5, category:'all', code:'SAVE20', title:'₹20 OFF on Any Order',
+    desc:'Get ₹20 off on any order above ₹150. Stack with other offers for maximum savings!',
+    discount:'₹20 OFF', icon:'💰', iconBg:'#fff8f5',
+    tags:['tag-orange:Min. ₹150','tag-green:All Items'],
+    ribbon:'💰 Saving', ribbonClass:'',
+    expiry:'28 Feb 2026', expired:false, expiryClass:'',
+  },
+  {
+    id:6, category:'flash', code:'PIZZA40', title:'40% OFF on Pizzas',
+    desc:'Flash deal! 40% off on all our premium pizzas. Margherita, BBQ Chicken, Cheese Burst — all included!',
+    discount:'40% OFF', icon:'🍕', iconBg:'#fff0eb',
+    tags:['tag-gold:Flash Sale','tag-orange:Pizzas Only'],
+    ribbon:'⚡ Flash', ribbonClass:'',
+    expiry:'Today only', expired:false, expiryClass:'soon',
+  },
+  {
+    id:7, category:'new', code:'REFER50', title:'Refer a Friend — ₹50 Each',
+    desc:'Refer SpiceMix to a friend. Both of you get ₹50 off your next order. Share the love!',
+    discount:'₹50 OFF', icon:'🤝', iconBg:'#f0fdf4',
+    tags:['tag-green:Referral','tag-blue:Both Users'],
+    ribbon:'🤝 Refer', ribbonClass:'green',
+    expiry:'Ongoing', expired:false, expiryClass:'',
+  },
+];
+
+var currentFilter = 'all';
+var toastTimer;
+
+function setFilter(btn, f) {
+  document.querySelectorAll('.ftab').forEach(function(t){t.classList.remove('active');});
+  btn.classList.add('active');
+  currentFilter = f;
+  renderOffers();
+}
+
+function searchOffers() {
+  renderOffers();
+}
+
+function renderOffers() {
+  var q = document.getElementById('searchInp').value.trim().toLowerCase();
+  var list = OFFERS.filter(function(o) {
+    var matchFilter = currentFilter === 'all' || o.category === currentFilter;
+    var matchSearch = !q || o.code.toLowerCase().indexOf(q) >= 0 || o.title.toLowerCase().indexOf(q) >= 0 || o.desc.toLowerCase().indexOf(q) >= 0;
+    return matchFilter && matchSearch;
+  });
+
+  document.getElementById('offerCount').textContent = 'Showing ' + list.length + ' offer' + (list.length !== 1 ? 's' : '');
+
+  var grid = document.getElementById('offersGrid');
+  if (!list.length) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:#aaa;"><div style="font-size:48px;margin-bottom:12px">🔍</div><h3 style="font-size:18px;font-weight:700;margin-bottom:8px;color:#333">No offers found</h3><p>Try a different search or filter</p></div>';
+    return;
+  }
+
+  grid.innerHTML = list.map(function(o, idx) {
+    var tagsHTML = o.tags.map(function(t) {
+      var parts = t.split(':');
+      return '<span class="oc-tag ' + parts[0] + '">' + parts[1] + '</span>';
+    }).join('');
+
+    var discountLines = o.discount.split('\n');
+    var discHTML = discountLines.map(function(l){return '<span>'+l+'</span>';}).join('<br>');
+
+    return '<div class="offer-card' + (o.expired?' expired':'') + '" style="animation-delay:'+(idx*0.07)+'s">' +
+      (o.ribbon ? '<div class="oc-ribbon '+o.ribbonClass+'">'+o.ribbon+'</div>' : '') +
+      '<div class="oc-top">' +
+        '<div class="oc-icon-row">' +
+          '<div class="oc-icon" style="background:'+o.iconBg+'">'+o.icon+'</div>' +
+          '<div class="oc-discount-badge">'+discHTML+'</div>' +
+        '</div>' +
+        '<div class="oc-title">'+o.title+'</div>' +
+        '<div class="oc-desc">'+o.desc+'</div>' +
+        '<div class="oc-tags">'+tagsHTML+'</div>' +
+      '</div>' +
+      '<div class="oc-bottom">' +
+        '<div class="oc-code-wrap">' +
+          '<div class="oc-code">'+o.code+'</div>' +
+          '<button class="copy-btn" onclick="copyCode(\''+o.code+'\')">Copy</button>' +
+        '</div>' +
+        '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px;">' +
+          (o.expired
+            ? '<span class="use-btn disabled">Expired</span>'
+            : '<a href="menu.html" class="use-btn">Use Now →</a>') +
+          '<div class="oc-expiry '+o.expiryClass+'">⏳ '+o.expiry+'</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function copyCode(code) {
+  try { navigator.clipboard.writeText(code); } catch(e) {}
+  showToast('✅ Code "' + code + '" copied!');
+}
+
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){t.classList.remove('show');}, 2500);
+}
+
+// COUNTDOWN
+var endTime = new Date().getTime() + (8*3600 + 42*60) * 1000;
+function updateCountdown() {
+  var now = new Date().getTime();
+  var diff = endTime - now;
+  if (diff <= 0) { document.getElementById('ctHr').textContent='00'; document.getElementById('ctMin').textContent='00'; document.getElementById('ctSec').textContent='00'; return; }
+  var h = Math.floor(diff / 3600000);
+  var m = Math.floor((diff % 3600000) / 60000);
+  var s = Math.floor((diff % 60000) / 1000);
+  document.getElementById('ctHr').textContent  = String(h).padStart(2,'0');
+  document.getElementById('ctMin').textContent = String(m).padStart(2,'0');
+  document.getElementById('ctSec').textContent = String(s).padStart(2,'0');
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+// INIT
+renderOffers();
+</script>
+</body>
+</html>

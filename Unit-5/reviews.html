@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rate Your Order - SpiceMix</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Poppins',sans-serif; background:#f7f7f7; color:#333; }
+    nav { background:white; padding:16px 40px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 12px rgba(0,0,0,0.08); position:sticky; top:0; z-index:100; }
+    .logo { font-size:22px; font-weight:800; color:#ff4500; }
+    .logo span { color:#333; }
+    .nav-btns { display:flex; gap:10px; }
+    .nav-btn { background:#f3f3f3; color:#333; border:none; padding:10px 18px; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer; font-family:'Poppins',sans-serif; transition:0.3s; }
+    .nav-btn:hover { background:#ff4500; color:white; }
+    .nav-btn.orange { background:#ff4500; color:white; }
+    .nav-btn.orange:hover { background:#e03d00; }
+    .page-top { background:linear-gradient(135deg,#ff4500,#ff8c00); padding:36px 40px; color:white; display:flex; align-items:center; gap:16px; }
+    .page-top-icon { font-size:42px; animation:bob 1.4s ease infinite alternate; }
+    @keyframes bob { from{transform:translateY(0)} to{transform:translateY(-8px)} }
+    .page-top h1 { font-size:26px; font-weight:800; margin-bottom:4px; }
+    .page-top p  { font-size:14px; opacity:0.88; }
+    .main { max-width:900px; margin:0 auto; padding:32px 40px 80px; display:flex; flex-direction:column; gap:24px; }
+    .rcard { background:white; border-radius:16px; box-shadow:0 2px 12px rgba(0,0,0,0.07); overflow:hidden; animation:fadeUp 0.5s ease both; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+    .rcard-head { padding:18px 24px 14px; border-bottom:1px solid #f5f5f5; display:flex; align-items:center; gap:10px; }
+    .rcard-head h2 { font-size:16px; font-weight:700; }
+    .step-badge { width:28px; height:28px; border-radius:50%; background:linear-gradient(135deg,#ff4500,#ff8c00); color:white; font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .order-summary-body { padding:18px 24px; }
+    .order-info-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; padding-bottom:14px; border-bottom:1px solid #f5f5f5; }
+    .order-id-lbl { font-size:11px; color:#aaa; font-weight:600; margin-bottom:3px; }
+    .order-id-val { font-size:18px; font-weight:800; color:#ff4500; }
+    .order-status { background:#f0fdf4; border:1px solid #bbf7d0; color:#16a34a; font-size:12px; font-weight:700; padding:6px 14px; border-radius:50px; display:flex; align-items:center; gap:5px; }
+    .status-dot { width:7px; height:7px; border-radius:50%; background:#22c55e; animation:blink 1.2s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .ordered-items { display:flex; flex-direction:column; gap:10px; }
+    .oi-item { display:flex; align-items:center; gap:12px; padding:10px; background:#fafafa; border-radius:10px; }
+    .oi-img  { width:44px; height:44px; border-radius:8px; object-fit:cover; flex-shrink:0; }
+    .oi-name { font-size:13px; font-weight:600; color:#333; }
+    .oi-qty  { font-size:11px; color:#aaa; margin-top:2px; }
+    .oi-price{ font-size:14px; font-weight:700; color:#ff4500; margin-left:auto; flex-shrink:0; }
+    .overall-body { padding:24px; text-align:center; }
+    .overall-label { font-size:14px; font-weight:600; color:#555; margin-bottom:18px; }
+    .star-row { display:flex; justify-content:center; gap:10px; margin-bottom:14px; }
+    .star { font-size:44px; cursor:pointer; transition:0.15s; filter:grayscale(1); opacity:0.3; user-select:none; }
+    .star.active { filter:grayscale(0); opacity:1; transform:scale(1.18); }
+    .star:hover  { filter:grayscale(0); opacity:0.8; transform:scale(1.1); }
+    .rating-label-text { font-size:15px; font-weight:700; color:#ff4500; min-height:24px; }
+    .item-ratings-body { padding:18px 24px; display:flex; flex-direction:column; gap:14px; }
+    .item-rate-row { display:flex; align-items:center; gap:14px; padding:14px; background:#fafafa; border-radius:12px; }
+    .ir-img  { width:48px; height:48px; border-radius:10px; object-fit:cover; flex-shrink:0; }
+    .ir-info { flex:1; }
+    .ir-name { font-size:13px; font-weight:600; color:#333; margin-bottom:6px; }
+    .ir-stars { display:flex; gap:4px; }
+    .ir-star { font-size:22px; cursor:pointer; transition:0.15s; filter:grayscale(1); opacity:0.3; user-select:none; }
+    .ir-star.active { filter:grayscale(0); opacity:1; }
+    .review-body { padding:18px 24px; display:flex; flex-direction:column; gap:14px; }
+    .field-lbl { font-size:11px; font-weight:700; color:#aaa; text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px; }
+    .review-tags { display:flex; gap:8px; flex-wrap:wrap; }
+    .rtag { padding:7px 16px; border:2px solid #e8e8e8; border-radius:50px; font-size:12px; font-weight:600; color:#555; cursor:pointer; transition:0.2s; background:white; }
+    .rtag.sel { background:#fff0eb; border-color:#ff4500; color:#ff4500; }
+    .review-textarea { width:100%; min-height:110px; padding:14px; border:1.5px solid #e8e8e8; border-radius:12px; font-family:'Poppins',sans-serif; font-size:13px; color:#333; background:#fafafa; outline:none; resize:vertical; transition:0.2s; line-height:1.6; }
+    .review-textarea:focus { border-color:#ff4500; background:white; }
+    .review-textarea::placeholder { color:#ccc; }
+    .char-count { font-size:11px; color:#ccc; text-align:right; margin-top:-8px; }
+    .delivery-body { padding:18px 24px; display:flex; flex-direction:column; gap:14px; }
+    .del-row { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; background:#fafafa; border-radius:10px; }
+    .del-label { font-size:13px; font-weight:600; color:#333; }
+    .del-stars { display:flex; gap:4px; }
+    .del-star { font-size:20px; cursor:pointer; transition:0.15s; filter:grayscale(1); opacity:0.3; user-select:none; }
+    .del-star.active { filter:grayscale(0); opacity:1; }
+    .submit-wrap { display:flex; flex-direction:column; gap:10px; }
+    .submit-btn { width:100%; padding:16px; background:linear-gradient(135deg,#ff4500,#ff8c00); color:white; border:none; border-radius:12px; font-family:'Poppins',sans-serif; font-size:15px; font-weight:800; cursor:pointer; transition:0.3s; box-shadow:0 4px 20px rgba(255,69,0,0.3); }
+    .submit-btn:hover { transform:translateY(-2px); }
+    .skip-btn { width:100%; padding:12px; background:#f3f3f3; color:#888; border:none; border-radius:12px; font-family:'Poppins',sans-serif; font-size:13px; font-weight:600; cursor:pointer; }
+    .community-head { padding:18px 24px 14px; border-bottom:1px solid #f5f5f5; display:flex; justify-content:space-between; align-items:center; }
+    .community-head h2 { font-size:16px; font-weight:700; }
+    .avg-badge { display:flex; align-items:center; gap:8px; background:#fff7f4; border:1px solid #ffe5d9; padding:6px 14px; border-radius:50px; }
+    .avg-num { font-size:18px; font-weight:800; color:#ff4500; }
+    .avg-count { font-size:11px; color:#aaa; font-weight:600; }
+    .rating-breakdown { padding:12px 24px 16px; }
+    .rb-row { display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+    .rb-label { font-size:12px; font-weight:600; color:#888; width:14px; text-align:right; flex-shrink:0; }
+    .rb-bar-wrap { flex:1; height:8px; background:#f0f0f0; border-radius:50px; overflow:hidden; }
+    .rb-bar { height:100%; border-radius:50px; transition:width 1.2s ease; }
+    .rb-count { font-size:11px; color:#aaa; width:28px; text-align:right; }
+    .community-body { padding:14px 24px 20px; display:flex; flex-direction:column; gap:14px; }
+    .review-item { border:1px solid #f0f0f0; border-radius:12px; padding:16px; }
+    .review-item.mine { border:2px solid #ffe5d9; background:#fff8f5; }
+    .ri-head { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+    .ri-avatar { width:38px; height:38px; border-radius:50%; background:linear-gradient(135deg,#ff4500,#ff8c00); display:flex; align-items:center; justify-content:center; font-size:16px; color:white; font-weight:700; flex-shrink:0; }
+    .ri-name { font-size:13px; font-weight:700; color:#333; }
+    .ri-date { font-size:11px; color:#aaa; }
+    .ri-stars-row { display:flex; gap:2px; margin-left:auto; }
+    .ri-sf { font-size:13px; }
+    .ri-text { font-size:13px; color:#555; line-height:1.7; margin-bottom:8px; }
+    .ri-tags { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:6px; }
+    .ri-tag { padding:3px 10px; background:#fff0eb; color:#ff4500; border-radius:50px; font-size:10px; font-weight:700; }
+    .ri-items { font-size:11px; color:#aaa; font-style:italic; margin-bottom:8px; }
+    .helpful-row { display:flex; align-items:center; gap:8px; padding-top:8px; border-top:1px solid #f5f5f5; }
+    .helpful-btn { background:none; border:1px solid #e8e8e8; border-radius:50px; padding:4px 12px; font-size:11px; font-weight:600; color:#888; cursor:pointer; transition:0.2s; font-family:'Poppins',sans-serif; }
+    .helpful-btn:hover,.helpful-btn.liked { background:#fff0eb; border-color:#ff4500; color:#ff4500; }
+    .helpful-count { font-size:11px; color:#aaa; }
+    .ty-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:400; display:none; align-items:center; justify-content:center; }
+    .ty-overlay.show { display:flex; animation:fadeIn 0.3s ease; }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+    .ty-box { background:white; border-radius:20px; padding:44px 36px; text-align:center; max-width:380px; width:90%; animation:popUp 0.5s cubic-bezier(0.22,1,0.36,1) both; position:relative; overflow:hidden; }
+    @keyframes popUp { from{opacity:0;transform:scale(0.8) translateY(20px)} to{opacity:1;transform:scale(1) translateY(0)} }
+    .ty-box::before { content:''; position:absolute; top:0; left:0; right:0; height:5px; background:linear-gradient(90deg,#ff4500,#ff8c00); }
+    .ty-ico { font-size:58px; margin-bottom:14px; animation:bounceIn 0.6s 0.2s ease both; display:block; }
+    @keyframes bounceIn { 0%{transform:scale(0)} 70%{transform:scale(1.2)} 100%{transform:scale(1)} }
+    .ty-title { font-size:22px; font-weight:800; color:#222; margin-bottom:8px; }
+    .ty-sub   { font-size:13px; color:#aaa; line-height:1.7; margin-bottom:18px; }
+    .ty-pts   { background:linear-gradient(135deg,#fff7f4,#fff0eb); border:2px solid #ffe5d9; border-radius:12px; padding:14px; margin-bottom:20px; }
+    .ty-pts-val { font-size:26px; font-weight:800; color:#ff4500; }
+    .ty-pts-lbl { font-size:12px; color:#888; margin-top:3px; }
+    .ty-btn-p { width:100%; padding:14px; background:linear-gradient(135deg,#ff4500,#ff8c00); color:white; border:none; border-radius:12px; font-family:'Poppins',sans-serif; font-size:14px; font-weight:800; cursor:pointer; margin-bottom:10px; }
+    .ty-btn-s { width:100%; padding:12px; background:#f3f3f3; color:#555; border:none; border-radius:12px; font-family:'Poppins',sans-serif; font-size:13px; font-weight:600; cursor:pointer; }
+    .conf-wrap { position:fixed; inset:0; pointer-events:none; z-index:500; }
+    .conf { position:absolute; top:-20px; animation:fall linear forwards; }
+    @keyframes fall { to{transform:translateY(110vh) rotate(720deg);opacity:0} }
+    @media(max-width:700px) { .main { padding:20px 16px 60px; } nav { padding:14px 16px; } .page-top { padding:28px 16px; } .star { font-size:36px; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Spice<span>Mix</span> 🌶️</div>
+  <div class="nav-btns">
+    <button class="nav-btn" onclick="location.href='index.html'">🏠 Home</button>
+    <button class="nav-btn" onclick="location.href='menu.html'">🍽️ Menu</button>
+    <button class="nav-btn" onclick="location.href='offers.html'">🎁 Offers</button>
+    <button class="nav-btn" onclick="location.href='about.html'">ℹ️ About</button>
+    <button class="nav-btn" onclick="location.href='contact.html'">📞 Contact</button>
+    <button class="nav-btn orange" onclick="location.href='menu.html'">🛒 Order Again</button>
+  </div>
+</nav>
+
+<div class="page-top">
+  <div class="page-top-icon">⭐</div>
+  <div><h1>Rate Your Experience</h1><p>Your feedback makes SpiceMix better for everyone 🌶️</p></div>
+</div>
+
+<div class="main">
+
+  <!-- STEP 1 -->
+  <div class="rcard" style="animation-delay:0s">
+    <div class="rcard-head"><div class="step-badge">1</div><h2>Your Order</h2></div>
+    <div class="order-summary-body">
+      <div class="order-info-row">
+        <div><div class="order-id-lbl">Order ID</div><div class="order-id-val" id="reviewOrderId">SM-XXXX</div></div>
+        <div class="order-status"><div class="status-dot"></div>Delivered ✅</div>
+      </div>
+      <div class="ordered-items" id="orderedItems"></div>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="rcard" style="animation-delay:0.07s">
+    <div class="rcard-head"><div class="step-badge">2</div><h2>Overall Rating</h2></div>
+    <div class="overall-body">
+      <div class="overall-label">How was your overall SpiceMix experience?</div>
+      <div class="star-row" id="overallStars">
+        <span class="star" onclick="setOverall(1)">⭐</span>
+        <span class="star" onclick="setOverall(2)">⭐</span>
+        <span class="star" onclick="setOverall(3)">⭐</span>
+        <span class="star" onclick="setOverall(4)">⭐</span>
+        <span class="star" onclick="setOverall(5)">⭐</span>
+      </div>
+      <div class="rating-label-text" id="ratingLabel">Tap to rate</div>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="rcard" style="animation-delay:0.12s">
+    <div class="rcard-head"><div class="step-badge">3</div><h2>Rate Each Item</h2></div>
+    <div class="item-ratings-body" id="itemRatings"></div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="rcard" style="animation-delay:0.17s">
+    <div class="rcard-head"><div class="step-badge">4</div><h2>Write a Review</h2></div>
+    <div class="review-body">
+      <div>
+        <div class="field-lbl">Quick Tags</div>
+        <div class="review-tags">
+          <span class="rtag" onclick="toggleTag(this)">🔥 Very Spicy</span>
+          <span class="rtag" onclick="toggleTag(this)">😋 Delicious</span>
+          <span class="rtag" onclick="toggleTag(this)">⚡ Fast Delivery</span>
+          <span class="rtag" onclick="toggleTag(this)">📦 Good Packaging</span>
+          <span class="rtag" onclick="toggleTag(this)">💰 Value for Money</span>
+          <span class="rtag" onclick="toggleTag(this)">🍽️ Large Portion</span>
+          <span class="rtag" onclick="toggleTag(this)">👨‍🍳 Freshly Made</span>
+          <span class="rtag" onclick="toggleTag(this)">❤️ Will Order Again</span>
+        </div>
+      </div>
+      <div>
+        <div class="field-lbl">Your Review</div>
+        <textarea class="review-textarea" id="reviewText" placeholder="Tell us about your experience... What did you love? Any suggestions?" maxlength="500" oninput="document.getElementById('charCount').textContent=this.value.length"></textarea>
+        <div class="char-count"><span id="charCount">0</span>/500</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="rcard" style="animation-delay:0.22s">
+    <div class="rcard-head"><div class="step-badge">5</div><h2>Delivery Experience</h2></div>
+    <div class="delivery-body">
+      <div class="del-row"><span class="del-label">⚡ Delivery Speed</span><div class="del-stars" id="del-speed"><span class="del-star" onclick="setDel('speed',1)">⭐</span><span class="del-star" onclick="setDel('speed',2)">⭐</span><span class="del-star" onclick="setDel('speed',3)">⭐</span><span class="del-star" onclick="setDel('speed',4)">⭐</span><span class="del-star" onclick="setDel('speed',5)">⭐</span></div></div>
+      <div class="del-row"><span class="del-label">😊 Delivery Partner</span><div class="del-stars" id="del-partner"><span class="del-star" onclick="setDel('partner',1)">⭐</span><span class="del-star" onclick="setDel('partner',2)">⭐</span><span class="del-star" onclick="setDel('partner',3)">⭐</span><span class="del-star" onclick="setDel('partner',4)">⭐</span><span class="del-star" onclick="setDel('partner',5)">⭐</span></div></div>
+      <div class="del-row"><span class="del-label">📦 Packaging</span><div class="del-stars" id="del-pack"><span class="del-star" onclick="setDel('pack',1)">⭐</span><span class="del-star" onclick="setDel('pack',2)">⭐</span><span class="del-star" onclick="setDel('pack',3)">⭐</span><span class="del-star" onclick="setDel('pack',4)">⭐</span><span class="del-star" onclick="setDel('pack',5)">⭐</span></div></div>
+    </div>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-wrap" style="animation:fadeUp 0.5s 0.27s ease both">
+    <button class="submit-btn" onclick="submitReview()">⭐ Submit Review & Earn 50 Points</button>
+    <button class="skip-btn" onclick="location.href='menu.html'">← Back to Menu</button>
+  </div>
+
+  <!-- COMMUNITY REVIEWS -->
+  <div class="rcard" style="animation-delay:0.3s">
+    <div class="community-head">
+      <h2>🌶️ Community Reviews</h2>
+      <div class="avg-badge"><span class="avg-num">4.7</span>⭐<span class="avg-count">2,847 reviews</span></div>
+    </div>
+    <div class="rating-breakdown">
+      <div class="rb-row"><span class="rb-label">5</span><div class="rb-bar-wrap"><div class="rb-bar" id="rb5" style="width:0%;background:linear-gradient(90deg,#ff4500,#ff8c00)"></div></div><span class="rb-count">1,840</span></div>
+      <div class="rb-row"><span class="rb-label">4</span><div class="rb-bar-wrap"><div class="rb-bar" id="rb4" style="width:0%;background:linear-gradient(90deg,#f59e0b,#fbbf24)"></div></div><span class="rb-count">682</span></div>
+      <div class="rb-row"><span class="rb-label">3</span><div class="rb-bar-wrap"><div class="rb-bar" id="rb3" style="width:0%;background:linear-gradient(90deg,#f59e0b,#fbbf24)"></div></div><span class="rb-count">215</span></div>
+      <div class="rb-row"><span class="rb-label">2</span><div class="rb-bar-wrap"><div class="rb-bar" id="rb2" style="width:0%;background:#d1d5db"></div></div><span class="rb-count">72</span></div>
+      <div class="rb-row"><span class="rb-label">1</span><div class="rb-bar-wrap"><div class="rb-bar" id="rb1" style="width:0%;background:#d1d5db"></div></div><span class="rb-count">38</span></div>
+    </div>
+    <div class="community-body" id="communityReviews"></div>
+  </div>
+
+</div>
+
+<!-- THANK YOU OVERLAY -->
+<div class="ty-overlay" id="tyOverlay">
+  <div class="ty-box">
+    <span class="ty-ico">🎉</span>
+    <div class="ty-title">Thank You!</div>
+    <div class="ty-sub">Your review has been submitted.<br>You earned reward points! 🏆</div>
+    <div class="ty-pts"><div class="ty-pts-val">+50 Points 🏆</div><div class="ty-pts-lbl">Added to your SpiceMix wallet</div></div>
+    <button class="ty-btn-p" onclick="location.href='menu.html'">🍽️ Order Again</button>
+    <button class="ty-btn-s" onclick="location.href='menu.html'">← Back to Menu</button>
+  </div>
+</div>
+<div class="conf-wrap" id="confWrap"></div>
+
+<script>
+let overallRating=0;
+const LABELS=['','😞 Poor','😕 Below Average','😐 Okay','😊 Good','🤩 Excellent!'];
+
+function loadData(){
+  let order=null;
+  try{order=JSON.parse(localStorage.getItem('spicemix_review_order')||localStorage.getItem('spicemix_order'));}catch(e){}
+  if(!order) order={id:'SM-'+Math.floor(1000+Math.random()*9000),items:[
+    {name:'Chicken Biryani',price:220,qty:1,img:'https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=400&q=80'},
+    {name:'Masala Dosa',price:80,qty:2,img:'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=400&q=80'},
+    {name:'Mango Lassi',price:70,qty:2,img:'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=400&q=80'},
+  ]};
+  document.getElementById('reviewOrderId').textContent=order.id||'SM-XXXX';
+  const items=order.items||[];
+  document.getElementById('orderedItems').innerHTML=items.map(it=>`
+    <div class="oi-item">
+      <img class="oi-img" src="${it.img}" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=80&q=80'">
+      <div><div class="oi-name">${it.name}</div><div class="oi-qty">Qty: ${it.qty}</div></div>
+      <div class="oi-price">₹${it.price*it.qty}</div>
+    </div>`).join('');
+  document.getElementById('itemRatings').innerHTML=items.map((it,i)=>`
+    <div class="item-rate-row">
+      <img class="ir-img" src="${it.img}" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=80&q=80'">
+      <div class="ir-info">
+        <div class="ir-name">${it.name}</div>
+        <div class="ir-stars" id="irs-${i}">${[1,2,3,4,5].map(v=>`<span class="ir-star" onclick="setItem(${i},${v})">⭐</span>`).join('')}</div>
+      </div>
+    </div>`).join('');
+}
+
+function setOverall(v){
+  overallRating=v;
+  document.querySelectorAll('#overallStars .star').forEach((s,i)=>s.classList.toggle('active',i<v));
+  document.getElementById('ratingLabel').textContent=LABELS[v]||'';
+}
+function setItem(idx,v){document.querySelectorAll(`#irs-${idx} .ir-star`).forEach((s,i)=>s.classList.toggle('active',i<v));}
+function setDel(cat,v){document.querySelectorAll(`#del-${cat} .del-star`).forEach((s,i)=>s.classList.toggle('active',i<v));}
+function toggleTag(el){el.classList.toggle('sel');}
+
+function submitReview(){
+  if(!overallRating){alert('Please give an overall rating first! ⭐');return;}
+  document.getElementById('tyOverlay').classList.add('show');
+  confetti();
+}
+
+const REVIEWS=[
+  {name:'Priya S.',avatar:'🧕',date:'2 days ago',stars:5,text:'Absolutely loved the Chicken Biryani! Spice level was perfect, portions generous. Super fast delivery!',tags:['😋 Delicious','⚡ Fast Delivery','❤️ Will Order Again'],items:'Chicken Biryani, Mango Lassi',helpful:24},
+  {name:'Karthik R.',avatar:'👨',date:'4 days ago',stars:5,text:'Best Masala Dosa in Chennai! Crispy outside, perfectly spiced filling. The chutney was amazing.',tags:['😋 Delicious','👨‍🍳 Freshly Made','💰 Value for Money'],items:'Masala Dosa, Filter Coffee',helpful:18},
+  {name:'Meena L.',avatar:'👩',date:'1 week ago',stars:4,text:'Really good food overall. The Dindigul Biryani was authentic and flavorful. Slightly late delivery though.',tags:['😋 Delicious','📦 Good Packaging'],items:'Dindigul Biryani',helpful:12},
+  {name:'Arun V.',avatar:'🧑',date:'1 week ago',stars:5,text:'SpiceMix never disappoints! Chilli Chicken was incredible. Packaging kept everything hot.',tags:['🔥 Very Spicy','📦 Good Packaging','❤️ Will Order Again'],items:'Chilli Chicken, Dragon Chicken',helpful:31},
+  {name:'Rajesh T.',avatar:'👨',date:'2 weeks ago',stars:5,text:'Mutton Biryani cooked to perfection — tender meat, fragrant rice. Delivery partner was super polite.',tags:['😋 Delicious','😊 Delivery Partner','⚡ Fast Delivery'],items:'Mutton Biryani',helpful:41},
+];
+
+function buildReviewHTML(r,isNew=false){
+  const stars=[1,2,3,4,5].map((_,i)=>`<span class="ri-sf">${i<r.stars?'⭐':'☆'}</span>`).join('');
+  return `<div class="ri-head"><div class="ri-avatar">${r.avatar}</div><div><div class="ri-name">${r.name}${isNew?' <span style="font-size:10px;color:#ff4500;background:#fff0eb;padding:1px 7px;border-radius:50px;">New</span>':''}</div><div class="ri-date">${r.date}</div></div><div class="ri-stars-row">${stars}</div></div><div class="ri-text">${r.text}</div>${r.tags.length?`<div class="ri-tags">${r.tags.map(t=>`<span class="ri-tag">${t}</span>`).join('')}</div>`:''}<div class="ri-items">Ordered: ${r.items}</div><div class="helpful-row"><button class="helpful-btn" onclick="helpful(this)">👍 Helpful</button><span class="helpful-count">${r.helpful} found this helpful</span></div>`;
+}
+
+function helpful(btn){
+  if(btn.classList.contains('liked'))return;
+  btn.classList.add('liked');
+  const c=btn.nextElementSibling;
+  c.textContent=(parseInt(c.textContent)+1)+' found this helpful';
+}
+
+function loadCommunity(){
+  document.getElementById('communityReviews').innerHTML=REVIEWS.map(r=>`<div class="review-item">${buildReviewHTML(r)}</div>`).join('');
+}
+
+function animateBars(){
+  setTimeout(()=>{
+    document.getElementById('rb5').style.width='65%';
+    document.getElementById('rb4').style.width='24%';
+    document.getElementById('rb3').style.width='7.5%';
+    document.getElementById('rb2').style.width='2.5%';
+    document.getElementById('rb1').style.width='1.3%';
+  },600);
+}
+
+function confetti(){
+  const wrap=document.getElementById('confWrap'); wrap.innerHTML='';
+  const cols=['#ff4500','#ff8c00','#22c55e','#3b82f6','#f59e0b','#ec4899'];
+  for(let i=0;i<80;i++){
+    const c=document.createElement('div'); c.className='conf';
+    const sz=6+Math.random()*9;
+    c.style.cssText=`left:${Math.random()*100}%;width:${sz}px;height:${sz}px;background:${cols[~~(Math.random()*cols.length)]};border-radius:${Math.random()>.5?'50%':'3px'};animation-duration:${1.6+Math.random()*2}s;animation-delay:${Math.random()*.8}s;`;
+    wrap.appendChild(c);
+  }
+  setTimeout(()=>wrap.innerHTML='',4500);
+}
+
+loadData(); loadCommunity(); animateBars();
+</script>
+</body>
+</html>

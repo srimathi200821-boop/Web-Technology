@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SpiceMix - Chennai's Favourite Restaurant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Poppins', sans-serif; background: #fff; color: #333; }
+    nav {
+      background: white; padding: 16px 60px;
+      display: flex; justify-content: space-between; align-items: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo { font-size: 26px; font-weight: 800; color: #ff4500; }
+    .logo span { color: #333; }
+    .nav-links a { text-decoration: none; color: #555; font-size: 14px; margin-left: 28px; font-weight: 500; transition: 0.3s; }
+    .nav-links a:hover { color: #ff4500; }
+    .nav-btn { background: #ff4500; color: white !important; padding: 10px 24px; border-radius: 8px; font-weight: 600 !important; }
+    .nav-btn:hover { background: #e03d00 !important; color: white !important; }
+    .hero {
+      background: linear-gradient(135deg, #ff4500 0%, #ff8c00 100%);
+      padding: 80px 60px;
+      display: flex; justify-content: space-between; align-items: center;
+      min-height: 500px;
+    }
+    .hero-text { max-width: 540px; }
+    .hero-badge { background: rgba(255,255,255,0.2); color: white; display: inline-block; padding: 6px 18px; border-radius: 50px; font-size: 13px; font-weight: 600; margin-bottom: 20px; }
+    .hero-text h1 { font-size: 52px; font-weight: 800; color: white; line-height: 1.15; margin-bottom: 16px; }
+    .hero-text h1 span { color: #ffe066; }
+    .hero-text p { color: rgba(255,255,255,0.88); font-size: 16px; margin-bottom: 36px; line-height: 1.7; }
+    .search-bar { display: flex; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.2); max-width: 460px; }
+    .search-bar input { flex: 1; padding: 16px 20px; border: none; font-size: 14px; font-family: 'Poppins', sans-serif; outline: none; }
+    .search-bar button { background: #ff4500; color: white; border: none; padding: 16px 26px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'Poppins', sans-serif; transition: 0.3s; }
+    .search-bar button:hover { background: #e03d00; }
+    .hero-emoji { font-size: 150px; animation: float 3s ease-in-out infinite; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-18px)} }
+    .stats { display: flex; justify-content: center; gap: 60px; padding: 36px 60px; background: #fff8f0; border-bottom: 1px solid #ffd8b8; }
+    .stat { text-align: center; }
+    .stat h3 { font-size: 28px; font-weight: 800; color: #ff4500; }
+    .stat p  { font-size: 13px; color: #888; margin-top: 4px; }
+    .section { padding: 60px; }
+    .section h2 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+    .section p  { color: #888; font-size: 14px; margin-bottom: 32px; }
+    .cat-row { display: flex; gap: 18px; flex-wrap: wrap; }
+    .cat-card { background: white; border: 2px solid #f0f0f0; border-radius: 16px; padding: 22px 18px; text-align: center; width: 120px; cursor: pointer; transition: 0.3s; text-decoration: none; color: #333; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .cat-card:hover { transform: translateY(-6px); border-color: #ff4500; box-shadow: 0 10px 24px rgba(255,69,0,0.15); }
+    .cat-card .emoji { font-size: 38px; margin-bottom: 10px; }
+    .cat-card p { font-size: 12px; font-weight: 600; }
+    .why { background: #fff8f0; padding: 60px; text-align: center; }
+    .why h2 { font-size: 26px; font-weight: 700; margin-bottom: 40px; }
+    .why-row { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; }
+    .why-card { background: white; border-radius: 16px; padding: 34px 24px; width: 210px; box-shadow: 0 4px 16px rgba(0,0,0,0.07); transition: 0.3s; }
+    .why-card:hover { transform: translateY(-6px); }
+    .why-card .icon { font-size: 42px; margin-bottom: 14px; }
+    .why-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+    .why-card p  { font-size: 13px; color: #888; line-height: 1.6; }
+    footer { background: #1a1a1a; color: rgba(255,255,255,0.55); text-align: center; padding: 26px; font-size: 13px; }
+    footer span { color: #ff4500; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">Spice<span>Mix</span> 🌶️</div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="offers.html">Offers</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html" class="nav-btn">Order Now</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-text">
+      <div class="hero-badge">🏆 Chennai's #1 Multi-Cuisine Restaurant</div>
+      <h1>Delicious Food,<br><span>Delivered Fast!</span></h1>
+      <p>South Indian, Chinese, Pizza, Biryani & more —<br>all under one roof, right here in Chennai!</p>
+      <div class="search-bar">
+        <input type="text" placeholder="🔍  Search for dishes, cuisines...">
+        <button onclick="window.location.href='login.html'">Order Now</button>
+      </div>
+    </div>
+    <div class="hero-emoji">🍛</div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><h3>350+</h3><p>Menu Items</p></div>
+    <div class="stat"><h3>4.8 ⭐</h3><p>Rating</p></div>
+    <div class="stat"><h3>30 min</h3><p>Fast Delivery</p></div>
+    <div class="stat"><h3>10K+</h3><p>Happy Customers</p></div>
+  </div>
+
+  <div class="section">
+    <h2>Explore by Category</h2>
+    <p>What are you craving today?</p>
+    <div class="cat-row">
+      <a href="login.html" class="cat-card"><div class="emoji">🍛</div><p>South Indian</p></a>
+      <a href="login.html" class="cat-card"><div class="emoji">🍜</div><p>Chinese</p></a>
+      <a href="login.html" class="cat-card"><div class="emoji">🍕</div><p>Pizza</p></a>
+      <a href="login.html" class="cat-card"><div class="emoji">🍔</div><p>Burgers</p></a>
+      <a href="login.html" class="cat-card"><div class="emoji">🥘</div><p>Biryani</p></a>
+      <a href="login.html" class="cat-card"><div class="emoji">🌮</div><p>Wraps</p></a>
+      <a href="login.html" class="cat-card"><div class="emoji">🍦</div><p>Desserts</p></a>
+      <a href="login.html" class="cat-card"><div class="emoji">🥤</div><p>Drinks</p></a>
+    </div>
+  </div>
+
+  <div class="why">
+    <h2>Why Choose SpiceMix? 🤩</h2>
+    <div class="why-row">
+      <div class="why-card"><div class="icon">🌶️</div><h4>Fresh & Tasty</h4><p>Made fresh every day with authentic Chennai spices</p></div>
+      <div class="why-card"><div class="icon">🚀</div><h4>Fast Delivery</h4><p>Hot food at your door in just 30 minutes</p></div>
+      <div class="why-card"><div class="icon">💰</div><h4>Best Price</h4><p>Great food at affordable prices for everyone</p></div>
+      <div class="why-card"><div class="icon">⭐</div><h4>Top Rated</h4><p>4.8 stars from 10,000+ happy customers</p></div>
+    </div>
+  </div>
+
+  <footer>Made with <span>❤️</span> in Chennai · SpiceMix Restaurant © 2025</footer>
+</body>
+</html>

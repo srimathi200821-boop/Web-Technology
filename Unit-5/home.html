@@ -1,0 +1,43 @@
+<!-- 
+  ============================================================
+  PASTE THIS <nav> block into your menu.html 
+  REPLACE the existing <nav>...</nav> section with this:
+  ============================================================
+  Also add this line inside your <head> tag to fix ALL emojis:
+  <meta charset="UTF-8">
+  ============================================================
+-->
+
+<nav>
+  <div class="logo">Spice<span>Mix</span> 🌶️</div>
+  <div class="nav-right">
+    <a href="index.html" style="color:#555;font-size:13px;font-weight:600;text-decoration:none;padding:10px 14px;border-radius:8px;transition:0.3s;" onmouseover="this.style.color='#ff4500'" onmouseout="this.style.color='#555'">🏠 Home</a>
+    <a href="about.html" style="color:#555;font-size:13px;font-weight:600;text-decoration:none;padding:10px 14px;border-radius:8px;transition:0.3s;" onmouseover="this.style.color='#ff4500'" onmouseout="this.style.color='#555'">ℹ️ About</a>
+    <a href="offers.html" style="color:#555;font-size:13px;font-weight:600;text-decoration:none;padding:10px 14px;border-radius:8px;transition:0.3s;" onmouseover="this.style.color='#ff4500'" onmouseout="this.style.color='#555'">🎁 Offers</a>
+    <a href="contact.html" style="color:#555;font-size:13px;font-weight:600;text-decoration:none;padding:10px 14px;border-radius:8px;transition:0.3s;" onmouseover="this.style.color='#ff4500'" onmouseout="this.style.color='#555'">📞 Contact</a>
+    <a href="reviews.html" style="color:#ff4500;font-size:13px;font-weight:600;text-decoration:none;padding:10px 14px;border-radius:8px;background:#fff0eb;">⭐ Reviews</a>
+    <button class="cart-btn" onclick="toggleCart()">🛒 Cart &nbsp;<span id="cartCount">0</span></button>
+    <button class="track-btn" onclick="toggleTracking()">
+      📦 Track Order
+      <span class="track-dot" id="trackDot"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ALSO replace your filters div with this: -->
+<div class="filters">
+  <button class="filter-btn active" onclick="filter(this,'all')">🍽️ All</button>
+  <button class="filter-btn" onclick="filter(this,'south-indian')">🍛 South Indian</button>
+  <button class="filter-btn" onclick="filter(this,'chinese')">🍜 Chinese</button>
+  <button class="filter-btn" onclick="filter(this,'pizza')">🍕 Pizza</button>
+  <button class="filter-btn" onclick="filter(this,'burger')">🍔 Burgers</button>
+  <button class="filter-btn" onclick="filter(this,'biryani')">🥘 Biryani</button>
+  <button class="filter-btn" onclick="filter(this,'dessert')">🍦 Desserts</button>
+  <button class="filter-btn" onclick="filter(this,'drinks')">🥤 Drinks</button>
+</div>
+
+<!-- ALSO replace page-top with this: -->
+<div class="page-top">
+  <h1>🍽️ Our Full Menu</h1>
+  <p>South Indian · Chinese · Pizza · Burgers · Biryani · Desserts · Drinks · 350+ Dishes!</p>
+</div>
