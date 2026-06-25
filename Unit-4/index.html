@@ -1,0 +1,29 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title>Restaurant Ordering System</title> 
+<link rel="stylesheet" href="style.css"> 
+</head> 
+<body> 
+<header> 
+<h1>     
+Food Restaurant Website</h1> 
+</header> 
+<div class="container"> 
+<h2>Menu</h2> 
+<div id="menu" class="menu"></div> 
+<h2>      
+Cart</h2> 
+<div id="cart"></div> 
+<div class="bill"> 
+<p>Subtotal: ₹<span id="subtotal">0</span></p> 
+<p>GST (5%): ₹<span id="gst">0</span></p> 
+<p>Discount: ₹<span id="discount">0</span></p> 
+<h3>Total: ₹<span id="total">0</span></h3> 
+</div> 
+<button onclick="placeOrder()">Place Order</button> 
+<button onclick="clearCart()">Clear Cart</button> 
+</div> 
+<script src="script.js"></script> 
+</body> 
+</html>

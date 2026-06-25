@@ -1,0 +1,48 @@
+body { 
+font-family: Arial; 
+margin: 0; 
+background: linear-gradient(to right, #ff9966, #ff5e62); 
+text-align: center; 
+} 
+header { 
+background: #333; 
+color: white; 
+padding: 15px; 
+} 
+.container { 
+padding: 20px; 
+} 
+.menu { 
+display: flex; 
+justify-content: center; 
+gap: 20px; 
+flex-wrap: wrap; 
+} 
+.item { 
+background: white; 
+padding: 15px; 
+width: 150px; 
+border-radius: 8px; 
+box-shadow: 0 0 5px gray; 
+} 
+button { 
+padding: 6px 12px; 
+margin: 5px; 
+background: green; 
+color: white; 
+border: none; 
+cursor: pointer; 
+} 
+button:hover { 
+background: darkgreen; 
+} 
+.cart-item { 
+margin: 8px 0; 
+} 
+.bill { 
+background: white; 
+width: 300px; 
+margin: 20px auto; 
+padding: 15px; 
+border-radius: 8px; 
+}
